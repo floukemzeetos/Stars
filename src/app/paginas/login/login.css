@@ -1,0 +1,200 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100%;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+.login {
+    display: flex;
+    width: 100%;
+    min-height: 100vh;
+}
+
+.login .img-login {
+    width: 40%;
+    background: url("/acess-bg/login.jpg") center / cover no-repeat;
+}
+
+.formlogin {
+    width: 60%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding: 80px 10% 0 10%;
+    gap: 80px;
+    background-color: #17243d;
+    color: var(--offwhite);
+}
+
+.textlogin {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    column-gap: 15px;
+}
+
+.textlogin img {
+    grid-column: 1;
+    grid-row: 1 / span 2;
+}
+
+.textlogin h5 {
+    grid-column: 2;
+    grid-row: 1;
+    font-size: 13pt;
+    font-weight: 700;
+}
+
+.textlogin h2 {
+    grid-column: 2;
+    grid-row: 2;
+    margin-top: -5px;
+    font-weight: 900;
+}
+
+/* Logo: coluna da direita, na mesma altura do GIF */
+.textlogin img.logo {
+    grid-column: 3;
+    grid-row: 1 / span 2;
+    justify-self: end;
+    margin-top: 0;
+}
+
+.forms {
+    width: 100%;
+}
+
+.forms form {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.forms form label {
+    font-weight: 700 !important;
+    margin-top: 25px;
+    margin-bottom: 5px;
+}
+
+.forms form label:first-child {
+    margin-top: 0;
+}
+
+input {
+    display: block;
+    width: 100%;
+    padding: 10px 0;
+    background-color: transparent;
+    color: var(--offwhite);
+    font-weight: 800;
+    font-family: inherit;
+    border: none;
+    border-bottom: 2px solid var(--offwhite2);
+    outline: none;
+    transition: border-bottom-color 0.3s ease-in-out;
+}
+
+input:focus {
+    border-bottom-color: var(--crimson_red);
+}
+
+::placeholder {
+    font-weight: 600;
+    color: var(--offwhite2);
+}
+
+button {
+    width: 100%;
+    max-width: 280px;
+    height: 50px;
+    margin-top: 35px;
+    margin-bottom: 25px;
+    background-color: transparent;
+    border: 2px solid var(--crimson_red);
+    border-radius: 5px;
+    font-size: 13pt;
+    font-family: inherit;
+    color: var(--offwhite);
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: var(--minimal_pink);
+}
+
+.forms form a,
+.forms form p.a {
+    text-decoration: none;
+    color: var(--offwhite);
+    font-weight: 500;
+    display: block;
+    margin-bottom: 5px;
+}
+
+a span.red {
+    color: var(--crimson_red);
+    font-weight: 800;
+    transition: text-decoration 0.3s ease;
+}
+
+a span.red:hover {
+    text-decoration: underline;
+}
+
+button.voltar {
+    width: 200px;
+    height: 35px;
+    border: 2px solid #a8d0ef;
+    background-color: #42a3ee;
+    font-weight: 700;
+    border-radius: 5px;
+    color: #fff;
+    display: block;
+    margin-top: 40px;
+    margin-left: auto;
+}
+
+@media (max-width: 992px) {
+    .login .img-login {
+        width: 30%;
+    }
+
+    .formlogin {
+        width: 70%;
+        padding: 60px 8%;
+        gap: 60px;
+    }
+}
+
+@media (max-width: 768px) {
+    .login .img-login {
+        display: none;
+    }
+
+    .formlogin {
+        width: 100%;
+        padding: 50px 5%;
+        gap: 40px;
+        justify-content: center;
+    }
+
+    button {
+        max-width: 100%;
+    }
+
+    button.voltar {
+        width: 100%;
+        margin-left: 0;
+        margin-top: 30px;
+    }
+
+    .textlogin img.logo {
+        width: 120px;
+    }
+}

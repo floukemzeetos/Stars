@@ -1,0 +1,107 @@
+
+
+.ola-usuario {
+  font-weight: 600;
+  margin-right: 8px;
+  white-space: nowrap;
+  align-self: center;
+}
+
+/* Cabeçalho: texto de login / saudação ao lado do botão de perfil */
+.ola-usuario {
+  color: var(--offwhite);
+  text-decoration: none;
+}
+
+a.ola-usuario:hover {
+  color: var(--minimal_pink);
+}
+
+/* Prévia da busca (3 produtos) abaixo da barra de pesquisa */
+.pesquisa {
+  position: relative;
+}
+
+.sugestoes-busca {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  right: 0;
+  z-index: 1100;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
+  overflow: hidden;
+  font-family: 'Quicksand', sans-serif;
+  color: #333;
+  text-align: left;
+}
+
+.sugestao-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 12px;
+  color: #333;
+  text-decoration: none;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.sugestao-item:hover {
+  background: var(--minimal_pink_opacity);
+  color: #333;
+}
+
+.sugestao-item img {
+  width: 44px;
+  height: 44px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+.sugestao-info {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.sugestao-nome {
+  font-size: 0.85rem;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.sugestao-preco {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--crimson_red);
+}
+
+.sugestao-preco s {
+  color: #888;
+  font-weight: 400;
+  margin-right: 6px;
+}
+
+.sugestao-status {
+  padding: 10px 12px;
+  font-size: 0.85rem;
+  color: #666;
+}
+
+.sugestao-ver-todos {
+  display: block;
+  padding: 10px 12px;
+  text-align: center;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--crimson_red);
+  background: #fafafa;
+  cursor: pointer;
+}
+
+.sugestao-ver-todos:hover {
+  background: var(--minimal_pink);
+}

@@ -1,0 +1,16 @@
+<div class="background">
+    <div class="translucido">
+        <div class="caixa-branca">
+            <img src="gif/clubPenguin.gif" alt="" width="110px">
+            <h3>Recupere sua Senha</h3>
+            <p align="center">Insira seu e-mail para localizarmos sua conta.<br>Assim que localizada, iremos enviar um e-mail para redefinir sua senha</p>
+            <form (ngSubmit)="recuperar()">
+                <label for="email">Insira seu e-mail</label><br>
+                <input id="email" name="email" type="email" [(ngModel)]="email" placeholder="linkL@sgroup.sk.br" required><br>
+                <div *ngIf="mensagem" class="alert alert-info mt-2">{{ mensagem }}</div>
+                <button type="submit" [disabled]="enviando">Recuperar sua Senha</button><a routerLink="/"><button type="button" class="voltar">Voltar para o início</button></a>
+                <br><br><img src="indentidades/skyfallGroup2.png" alt="Logo Skyfall Group" width="200px">
+            </form>
+        </div>
+    </div>
+</div>

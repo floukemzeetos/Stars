@@ -1,0 +1,13 @@
+export class ProdNatural {
+    codigo: number = 0;
+    nome: string = "";
+    descritivo: string ='';
+    valor: number = 0;
+    valorPromo: number = 0;
+    quantidade: number = 0;
+    peso: number = 0;
+    destaque: number = 0;
+    categoria: string = "";
+    subcategoria: string = "";
+    marca: string = "";
+}

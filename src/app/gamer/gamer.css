@@ -1,0 +1,14 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+h1.gamer {
+    font-family: 'Press Start 2P', system-ui !important;
+}
+
+h1.gamer span.h-bold {
+    font-family: 'Press Start 2P', system-ui !important;
+}
+
+#produtosTab {
+    font-family: 'Press Start 2P', system-ui !important;
+    font-size: 9pt;
+}

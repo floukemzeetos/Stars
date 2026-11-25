@@ -1,0 +1,42 @@
+.perfil-page {
+  font-family: 'Quicksand', sans-serif;
+  color: #333;
+}
+
+.cartao-perfil {
+  background: #fff;
+  border: 1px solid #eee;
+  border-radius: 14px;
+  padding: 28px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
+}
+
+.avatar {
+  width: 96px;
+  height: 96px;
+  margin: 0 auto;
+  border-radius: 50%;
+  background: var(--crimson_red);
+  color: var(--offwhite);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.destaque {
+  color: var(--crimson_red);
+}
+
+.dados dt {
+  font-weight: 700;
+  padding: 8px 0;
+  border-bottom: 1px solid #f2f2f2;
+}
+
+.dados dd {
+  padding: 8px 0;
+  border-bottom: 1px solid #f2f2f2;
+  word-break: break-word;
+}

@@ -1,0 +1,43 @@
+<div class="container-fluid promocoes mt-5 mb-5 px-3 px-md-5">
+    <h1>Produtos <span class="h-bold" id="classic">Premium</span></h1>
+    <div class="row g-3 justify-content-center m-0">
+      <div class="col-sm-12 col-md-6 col-lg-4 col-xl-3 col-xxl-2" *ngFor="let obj of lista">
+        <div class="card h-100 text-center p-3 shadow-sm mx-auto" style="border-radius: 12px; border: 1px solid #eee; max-width: 300px;">
+          <img [src]="'/' + ($any(obj).imagem || obj.codigo) + '.jpg'" class="card-img-top mx-auto" style="height: 160px; object-fit: contain;"
+            [alt]="obj.nome">
+
+          <div class="card-body d-flex flex-column p-0 mt-3">
+            <h6 class="card-title fw-bold mb-3" style="font-size: 0.95rem;">{{obj.nome}}</h6>
+
+            <div class="mt-auto">
+              <span class="text-muted text-decoration-line-through d-block mb-1" style="font-size: 0.85rem;" *ngIf="obj.valorPromo > 0">
+                R$ {{obj.valor}}
+              </span>
+
+              <span class="text-success fw-bold fs-5 d-block mb-3">
+                R$ {{obj.valorPromo > 0 ? obj.valorPromo : obj.valor}}
+              </span>
+
+              <div class="controle d-flex justify-content-center gap-2">
+                <button
+                  type="button"
+                  (click)="abrirDetalhe(obj)"
+                  class="btn btn-outline-secondary w-50 detalhe d-flex align-items-center justify-content-center gap-1"
+                  style="font-size: 0.85rem;">
+                  <i class="fa-solid fa-magnifying-glass"></i> Detalhe
+                </button>
+
+                <button
+                  (click)="adicionarAoCarrinho(obj)"
+                  class="btn btn-success w-50 compra d-flex align-items-center justify-content-center gap-1"
+                  style="font-size: 0.85rem;"
+                  *ngIf="obj.quantidade > 0">
+                  <i class="fa-solid fa-cart-plus"></i> Comprar
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

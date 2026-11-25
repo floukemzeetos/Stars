@@ -1,0 +1,124 @@
+<div class="busca-page container-fluid px-3 px-md-5 py-4">
+
+  <div class="busca-topo">
+    <div>
+      <h2 class="mb-1">Resultados para <span class="destaque">"{{ termo }}"</span></h2>
+      @if (!carregando && !erro && termo && resultados.length > 0) {
+        <p class="text-muted mb-0">
+          Mostrando {{ exibidos().length }} de {{ resultados.length }} produto(s)
+        </p>
+      }
+    </div>
+
+    <form class="refinar" (ngSubmit)="refinar()">
+      <input class="form-control" name="termoNovo" [(ngModel)]="termoNovo"
+             placeholder="Nome ou código do produto" aria-label="Refinar busca">
+      <button class="btn btn-danger" type="submit" aria-label="Buscar">
+        <i class="fa-solid fa-magnifying-glass"></i>
+      </button>
+    </form>
+  </div>
+
+  @if (resultados.length > 0) {
+    <div class="barra-filtros">
+      <div class="chips">
+        <button type="button" class="chip" [class.ativo]="soPromocao" (click)="alternarPromocao()">
+          <i class="fa-solid fa-tag"></i> Em promoção
+        </button>
+        <button type="button" class="chip" [class.ativo]="soDisponivel" (click)="alternarDisponivel()">
+          <i class="fa-solid fa-box"></i> Disponíveis
+        </button>
+        @if (soPromocao || soDisponivel || ordenacao !== 'relevancia') {
+          <button type="button" class="chip limpar" (click)="limparFiltros()">
+            <i class="fa-solid fa-xmark"></i> Limpar
+          </button>
+        }
+      </div>
+
+      <label class="ordenar">
+        <span>Ordenar por</span>
+        <select class="form-select form-select-sm" [(ngModel)]="ordenacao">
+          <option value="relevancia">Relevância</option>
+          <option value="menorPreco">Menor preço</option>
+          <option value="maiorPreco">Maior preço</option>
+          <option value="desconto">Maior desconto</option>
+          <option value="nome">Nome (A–Z)</option>
+        </select>
+      </label>
+    </div>
+  }
+
+  @if (avisoCarrinho) {
+    <div class="aviso"><i class="fa-solid fa-circle-check"></i> {{ avisoCarrinho }}</div>
+  }
+
+  @if (carregando) {
+    <div class="estado text-center py-5">
+      <div class="spinner-border text-danger"></div>
+      <p class="text-muted mt-2">Buscando produtos...</p>
+    </div>
+  } @else if (erro) {
+    <div class="alert alert-danger">{{ erro }}</div>
+  } @else if (!termo) {
+    <div class="estado text-center py-5">
+      <i class="fa-solid fa-magnifying-glass fa-3x text-muted mb-3"></i>
+      <h4>Digite o nome ou o código de um produto</h4>
+      <p class="text-muted">Use a barra de pesquisa no topo da página.</p>
+    </div>
+  } @else if (resultados.length === 0) {
+    <div class="estado text-center py-5">
+      <i class="fa-regular fa-face-frown fa-3x text-muted mb-3"></i>
+      <h4>Nenhum produto encontrado para "{{ termo }}"</h4>
+      <p class="text-muted">Confira a grafia ou use só uma parte do nome. Você também pode buscar pelo código.</p>
+      <a routerLink="/" class="btn btn-outline-danger mt-2">Voltar para a página inicial</a>
+    </div>
+  } @else if (exibidos().length === 0) {
+    <div class="estado text-center py-4">
+      <p class="text-muted">Nenhum produto corresponde aos filtros escolhidos.</p>
+      <button class="btn btn-outline-secondary btn-sm" (click)="limparFiltros()">Limpar filtros</button>
+    </div>
+  } @else {
+    <div class="grade">
+      @for (p of exibidos(); track p.codigo) {
+        <article class="cartao" [class.esgotado]="p.quantidade <= 0">
+          <a class="imagem" [routerLink]="['/detalhes', p.codigo]" [state]="{ produto: p }">
+            <img [src]="'/' + (p.imagem || p.codigo) + '.jpg'" [alt]="p.nome">
+            @if (temPromocao(p)) {
+              <span class="selo">-{{ percentual(p) }}%</span>
+            }
+            @if (p.quantidade <= 0) {
+              <span class="selo selo-esgotado">Esgotado</span>
+            }
+          </a>
+
+          <div class="corpo">
+            <span class="codigo">Cód. {{ p.codigo }}</span>
+
+            <a class="nome" [routerLink]="['/detalhes', p.codigo]" [state]="{ produto: p }">
+              @for (parte of partes(p.nome); track $index) {
+                @if (parte.marca) {
+                  <mark>{{ parte.texto }}</mark>
+                } @else {
+                  {{ parte.texto }}
+                }
+              }
+            </a>
+
+            <div class="precos">
+              @if (temPromocao(p)) {
+                <s>{{ p.valor | currency:'BRL' }}</s>
+              }
+              <strong>{{ precoFinal(p) | currency:'BRL' }}</strong>
+            </div>
+
+            <button type="button" class="btn btn-danger w-100 btn-comprar"
+                    [disabled]="p.quantidade <= 0" (click)="comprar(p)">
+              <i class="fa-solid fa-cart-plus"></i>
+              {{ p.quantidade > 0 ? 'Adicionar ao carrinho' : 'Indisponível' }}
+            </button>
+          </div>
+        </article>
+      }
+    </div>
+  }
+</div>

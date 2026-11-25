@@ -1,0 +1,52 @@
+<div class="login">
+    <div class="formlogin">
+        <div class="textlogin">
+            <img src="gif/clippy.gif" alt="" width="90px">
+            <h5>Faça seu</h5>
+            <h2>Cadastro</h2>
+            <img src="indentidades/logotipo-3.png" alt="Logo Stars" width="160px" class="logo">
+        </div>
+        <div class="forms">
+            <form (ngSubmit)="cadastrar()">
+                <div class="field">
+                    <label>Nome Completo</label>
+                    <input type="text" name="nome" [(ngModel)]="nome" placeholder="Link Link" required>
+                </div>
+
+                <div class="field">
+                    <label>CPF</label>
+                    <input type="text" name="cpf" [(ngModel)]="cpf" placeholder="000.000.000-00" maxlength="14">
+                </div>
+
+                <div class="form-row">
+                    <div class="field">
+                        <label>E-mail</label>
+                        <input type="email" name="email" [(ngModel)]="email" placeholder="LinkL@sgroup.sk.br" required>
+                    </div>
+                    <div class="field">
+                        <label>Repita seu E-mail</label>
+                        <input type="email" name="emailConfirma" [(ngModel)]="emailConfirma" placeholder="LinkL@sgroup.sk.br" required>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="field">
+                        <label>Senha</label>
+                        <input type="password" name="senha" [(ngModel)]="senha" placeholder="Insira a Sua Senha!" minlength="6" required>
+                    </div>
+                    <div class="field">
+                        <label>Confirme sua Senha</label>
+                        <input type="password" name="senhaConfirma" [(ngModel)]="senhaConfirma" placeholder="Insira a Sua Senha!" required>
+                    </div>
+                </div>
+
+                <div *ngIf="mensagem" [class.alert-danger]="erro" [class.alert-success]="!erro" class="alert mt-2">{{ mensagem }}</div>
+
+                <button type="submit" id="submit" [disabled]="enviando">Cadastrar</button>
+            </form>
+            <p class="a">Caso já possua uma conta, <a routerLink="/login" align="left" id="primer"><span class="red">Clique aqui!</span></a></p>
+            <button class="voltar" routerLink="/">Voltar para o Início</button>
+        </div>
+    </div>
+    <div class="img-login"></div>
+</div>

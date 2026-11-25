@@ -1,0 +1,75 @@
+<div class="pedidos-page container py-5">
+
+  <div class="d-flex flex-wrap justify-content-between align-items-end gap-3 mb-4">
+    <div>
+      <h2 class="mb-1">Meus <span class="destaque">pedidos</span></h2>
+      <p class="text-muted mb-0">Acompanhe as compras realizadas com a sua conta.</p>
+    </div>
+
+    @if (!carregando && !erro && pedidos.length > 0) {
+      <div class="resumo">
+        <div>
+          <span>Pedidos</span>
+          <strong>{{ pedidos.length }}</strong>
+        </div>
+        <div>
+          <span>Total gasto</span>
+          <strong>{{ totalGasto | currency:'BRL' }}</strong>
+        </div>
+      </div>
+    }
+  </div>
+
+  @if (carregando) {
+    <div class="text-center py-5">
+      <div class="spinner-border text-danger"></div>
+      <p class="text-muted mt-2">Carregando pedidos...</p>
+    </div>
+  } @else if (erro) {
+    <div class="alert alert-danger">{{ erro }}</div>
+  } @else if (pedidos.length === 0) {
+    <div class="vazio text-center py-5">
+      <i class="fa-solid fa-box-open fa-3x text-muted mb-3"></i>
+      <h4>Você ainda não fez nenhum pedido</h4>
+      <p class="text-muted">Quando você finalizar uma compra, ela aparece aqui.</p>
+      <a routerLink="/" class="btn btn-danger mt-2">Ir às compras</a>
+    </div>
+  } @else {
+    @for (p of pedidos; track p.codigoPedido) {
+      <article class="cartao-pedido mb-4">
+        <header class="cabecalho">
+          <div>
+            <span class="rotulo">Pedido</span>
+            <strong>nº {{ p.codigoPedido }}</strong>
+          </div>
+          <div>
+            <span class="rotulo">Data</span>
+            <strong>{{ p.dataPedido | date:'dd/MM/yyyy' }}</strong>
+          </div>
+          <div>
+            <span class="rotulo">Entrega</span>
+            <strong>{{ p.entrega }}</strong>
+          </div>
+          <div class="ms-auto text-end">
+            <span class="rotulo">Total</span>
+            <strong class="total">{{ p.valorTotal | currency:'BRL' }}</strong>
+          </div>
+        </header>
+
+        <ul class="itens">
+          @for (item of p.itens; track item.codigoItemPedido) {
+            <li>
+              <span class="nome">{{ item.nomeProduto }}</span>
+              <span class="qtd">{{ item.quantidade }} x {{ item.valorUnitario | currency:'BRL' }}</span>
+              <span class="sub">{{ subtotal(item) | currency:'BRL' }}</span>
+            </li>
+          }
+        </ul>
+
+        @if (p.obs) {
+          <p class="obs mb-0">Observação: {{ p.obs }}</p>
+        }
+      </article>
+    }
+  }
+</div>

@@ -1,0 +1,284 @@
+@if (!isAuthRoute()) {
+
+  <header class="header-flutuante">
+
+
+<div class="bar">
+  <img src="indentidades/logoSkyfallGroup.png" alt="Logo da Skyfall Group">
+</div>
+
+<div class="header">
+
+  <div class="logotipo">
+    <a href="#">
+      <img src="indentidades/logotipo-4.png" alt="Logo Site" width="135px">
+    </a>
+  </div>
+
+  <input type="checkbox" id="menu-toggle" class="menu-btn">
+
+  <label for="menu-toggle" class="menu-icon">
+    <i class="fa-solid fa-bars"></i>
+  </label>
+
+  <div class="menu-drawer">
+
+    <label for="menu-toggle" class="close-btn">
+      <i class="fa-solid fa-xmark"></i>
+    </label>
+
+    <div class="navegador">
+      <ul class="nav">
+
+        <li><a href="atacadista">Atacadista</a></li>
+        <li><a href="livraria">Livraria</a></li>
+        <li><a href="eletro">Eletro</a></li>
+
+        <li class="dropdown">
+          <a href="retro-comum" class="dropdown-toggle">Retrô</a>
+
+          <ul class="dropdown-menu">
+            <li><a href="retro">Produtos Retrô</a></li>
+            <li><a href="discos">Discos e Musicas</a></li>
+            <li><a href="filmes-antigos">Filmes Antigos</a></li>
+            <li><a href="retro-game">Retrô Games</a></li>
+          </ul>
+        </li>
+
+        <li><a href="gamer">Gamer</a></li>
+        <li><a href="casa-mesa-banho">Casa</a></li>
+        <li><a href="pharma">SkyPharma</a></li>
+        <li><a href="produtos-premium">Produtos Premium</a></li>
+
+      </ul>
+    </div>
+
+    <div class="input-group pesquisa">
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Pesquisar por nome ou código..."
+        aria-label="Pesquisar produtos"
+        [ngModel]="termo"
+        (ngModelChange)="aoDigitar($event)"
+        (focus)="abrirSugestoes()"
+        (keyup.enter)="buscar()"
+      >
+      <button class="btn btn-light" type="button" (click)="buscar()">
+        <i class="fa-solid fa-magnifying-glass"></i>
+      </button>
+
+      @if (mostrarSugestoes) {
+        <div class="sugestoes-busca">
+          @for (p of sugestoes; track p.codigo) {
+            <a class="sugestao-item" [routerLink]="['/detalhes', p.codigo]" [state]="{ produto: p }">
+              <img [src]="'/' + (p.imagem || p.codigo) + '.jpg'" [alt]="p.nome">
+              <div class="sugestao-info">
+                <span class="sugestao-nome">{{ p.nome }}</span>
+                <span class="sugestao-preco">
+                  @if (p.valorPromo > 0) {
+                    <s>{{ p.valor | currency:'BRL' }}</s>
+                    {{ p.valorPromo | currency:'BRL' }}
+                  } @else {
+                    {{ p.valor | currency:'BRL' }}
+                  }
+                </span>
+              </div>
+            </a>
+          } @empty {
+            <div class="sugestao-status">
+              {{ carregandoSugestoes ? 'Buscando produtos...' : 'Nenhum produto encontrado.' }}
+            </div>
+          }
+
+          @if (sugestoes.length > 0) {
+            <a class="sugestao-ver-todos" (click)="buscar()">Ver todos os resultados</a>
+          }
+        </div>
+      }
+    </div>
+
+    <div class="grupo-direito">
+
+      <div class="clube">
+        <a href="em-construcao">
+          <button>
+            <img src="indentidades/moonclub.png" alt="Logo Skyfall Fidelidade" width="120px">
+          </button>
+        </a>
+      </div>
+
+      <div class="btnHeader">
+
+        <nav class="btn header-actions-nav">
+
+          <a href="#">
+            <button class="header-btn">
+              <i class="fa-solid fa-house"></i>
+            </button>
+          </a>
+
+          @if (usuario) {
+            <a routerLink="/perfil" class="ola-usuario" title="Meu perfil">Olá, {{ usuario.nome }}</a>
+            <a routerLink="/meus-pedidos" title="Meus pedidos">
+              <button class="header-btn" type="button"><i class="fa-solid fa-box"></i></button>
+            </a>
+            <button class="header-btn" type="button" (click)="sair()" title="Sair">
+              <i class="fa-solid fa-right-from-bracket"></i>
+            </button>
+          } @else {
+            <a href="login" class="ola-usuario">Faça seu login</a>
+            <a href="login">
+              <button class="header-btn">
+                <i class="fa-solid fa-circle-user"></i>
+              </button>
+            </a>
+          }
+
+          <a href="carrinho" class="position-relative d-inline-block">
+            <button class="header-btn">
+              <i class="fa-solid fa-bag-shopping"></i>
+            </button>
+
+            @if (cart.totalItens() > 0) {
+              <span
+                class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
+                style="font-size: 0.65rem;">
+                {{ cart.totalItens() }}
+              </span>
+            }
+          </a>
+
+        </nav>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+  </header>
+
+}
+
+<router-outlet></router-outlet>
+
+@if (!isAuthRoute()) {
+
+  <footer>
+
+
+<div class="inscricaoOfertas">
+
+  <div class="txt">
+    <h3>Inscreva-se para receber ofertas e dicas</h3>
+  </div>
+
+  <div class="formOf">
+    <form action="">
+      <input type="email" name="email" placeholder="link@sgroup.sk.br" required>
+      <button class="submit" type="submit">
+        Inscrever-se
+        <i class="fa-solid fa-right-long"></i>
+      </button>
+    </form>
+  </div>
+
+</div>
+
+<div class="bar"></div>
+
+<div class="sec">
+
+  <div class="sec-1">
+    <h4>Atendimento Skyfall Atacadista</h4>
+    <a href="em-construcao">Formas de Contato</a>
+    <a href="em-construcao">Política de Troca e Devolução</a>
+    <a href="em-construcao">Central de Trocas</a>
+    <a href="em-construcao">Atendimento Pessoa Juridica</a>
+    <a href="em-construcao">Pós Venda</a>
+    <a href="em-construcao">Serviço de Garantia</a>
+  </div>
+
+  <div class="sec-2">
+    <h4>Links úteis</h4>
+    <a href="em-construcao">FAQ</a>
+    <a href="em-construcao">Skyfall Fidelidade</a>
+    <a href="em-construcao">Cartão Presente</a>
+    <a href="em-construcao">Dia Skyfall</a>
+  </div>
+
+  <div class="sec-3">
+    <h4>Redes Sociais</h4>
+    <a href="em-manutencao"><i class="fa-brands fa-facebook-f"></i> Facebook</a>
+    <a href="em-manutencao"><i class="fa-brands fa-instagram"></i> Instagram</a>
+    <a href="em-manutencao"><i class="fa-brands fa-linkedin-in"></i> Linkedin</a>
+    <a href="em-manutencao"><i class="fa-brands fa-tiktok"></i> TikTok</a>
+    <a href="em-manutencao"><i class="fa-brands fa-x-twitter"></i> X (Twitter)</a>
+    <a href="em-manutencao"><i class="fa-brands fa-youtube"></i> Youtube</a>
+    <a href="em-manutencao"><i class="fa-brands fa-bluesky"></i> BlueSky</a>
+    <a href="em-manutencao"><i class="fa-brands fa-threads"></i> Threads</a>
+  </div>
+
+  <div class="sec-4">
+    <img src="indentidades/logotipo-3.png" alt="logo do site" width="300px">
+  </div>
+
+</div>
+
+<div class="bar"></div>
+
+<div class="formasPagamento">
+
+  <h3>Formas de pagamento</h3>
+
+  <img src="Icones-Pegar/bandeirasCard/american-express.png" alt="Amex">
+  <img src="Icones-Pegar/bandeirasCard/diners.png" alt="Diners">
+  <img src="Icones-Pegar/bandeirasCard/elo.png" alt="Elo">
+  <img src="Icones-Pegar/bandeirasCard/hipercard.png" alt="Hipercard">
+  <img src="Icones-Pegar/bandeirasCard/jcb.png" alt="JCB">
+  <img src="Icones-Pegar/bandeirasCard/mastercard.png" alt="Mastercard">
+  <img src="Icones-Pegar/bandeirasCard/visa.png" alt="Visa">
+  <img src="Icones-Pegar/appsPag/google-pay.png" alt="Google Pay">
+  <img src="Icones-Pegar/appsPag/samsung-pay.png" alt="Samsung Pay">
+  <img src="Icones-Pegar/appsPag/apple-pay.png" alt="Apple Pay">
+  <img src="Icones-Pegar/appsPag/paypal-alt.png" alt="PayPal">
+  <img src="Icones-Pegar/outros/card-generic.png" alt="Card">
+  <img src="Icones-Pegar/outros/gift-card-generic-gold.png" alt="Gift Card">
+  <img src="Icones-Pegar/outros/pix.png" alt="Pix">
+
+</div>
+
+<div class="bar"></div>
+
+<div class="infoEmpresa">
+
+  <p>
+    Skyfall Stars Comercio S.A | CNPJ: XX.XXX.XXX/0001-99 |
+    Avenida Paulista, 9945 - Bela Vista - São Paulo - SP |
+    CEP: 01311-300
+  </p>
+
+  <p>
+    Horário comercial: segunda a sexta, das 09h às 19h |
+    sábados, domingos e feriados, das 10h as 15h |
+    telefone comercial: (11) 7648-XXXX
+  </p>
+
+  <h5>&copy; Stars - 2025-2026 - Todos os direitos reservados</h5>
+
+</div>
+
+
+  </footer>
+
+  <div class="tarjaDev">
+    <img src="flag/flagBr.png" alt="Bandeira do brasil">
+    <p>Versão 1.0 - Desenvolvido pela Skyfall Group</p>
+    <img src="flag/flagSp.png" alt="Bandeira de SP">
+  </div>
+
+}

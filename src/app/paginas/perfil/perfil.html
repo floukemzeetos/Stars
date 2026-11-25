@@ -1,0 +1,88 @@
+<div class="perfil-page container py-5">
+  @if (cliente) {
+    <div class="row justify-content-center g-4">
+
+      <div class="col-lg-4">
+        <div class="cartao-perfil text-center">
+          <div class="avatar">{{ iniciais() }}</div>
+          <h4 class="mt-3 mb-1">{{ cliente.nome }}</h4>
+          <p class="text-muted mb-4">Cliente nº {{ cliente.codigo }}</p>
+
+          <a routerLink="/meus-pedidos" class="btn btn-danger w-100 mb-2">
+            <i class="fa-solid fa-box"></i> Meus pedidos
+          </a>
+          <button type="button" class="btn btn-outline-secondary w-100" (click)="sair()">
+            <i class="fa-solid fa-right-from-bracket"></i> Sair da conta
+          </button>
+        </div>
+      </div>
+
+      <div class="col-lg-8">
+        <div class="cartao-perfil">
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <h4 class="mb-0">Meus <span class="destaque">dados</span></h4>
+            @if (!editando) {
+              <button class="btn btn-outline-danger btn-sm" (click)="editar()">
+                <i class="fa-solid fa-pen"></i> Editar
+              </button>
+            }
+          </div>
+
+          @if (mensagem) {
+            <div class="alert" [class.alert-danger]="erro" [class.alert-success]="!erro">{{ mensagem }}</div>
+          }
+
+          @if (!editando) {
+            <dl class="dados row mb-0">
+              <dt class="col-sm-4">Nome</dt>
+              <dd class="col-sm-8">{{ cliente.nome }}</dd>
+
+              <dt class="col-sm-4">E-mail</dt>
+              <dd class="col-sm-8">{{ cliente.email }}</dd>
+
+              <dt class="col-sm-4">CPF</dt>
+              <dd class="col-sm-8">{{ cliente.documento || '—' }}</dd>
+
+              <dt class="col-sm-4">Telefone</dt>
+              <dd class="col-sm-8">{{ cliente.telefone || '—' }}</dd>
+
+              <dt class="col-sm-4">Endereço</dt>
+              <dd class="col-sm-8">{{ cliente.logradouro || '—' }}</dd>
+            </dl>
+          } @else {
+            <form (ngSubmit)="salvar()">
+              <div class="mb-3">
+                <label class="form-label">Nome completo</label>
+                <input class="form-control" name="nome" [(ngModel)]="form.nome" required>
+              </div>
+
+              <div class="mb-3">
+                <label class="form-label">E-mail</label>
+                <input class="form-control" [value]="cliente.email" disabled>
+                <small class="text-muted">O e-mail não pode ser alterado.</small>
+              </div>
+
+              <div class="mb-3">
+                <label class="form-label">Telefone</label>
+                <input class="form-control" name="telefone" [(ngModel)]="form.telefone" placeholder="(11) 90000-0000">
+              </div>
+
+              <div class="mb-4">
+                <label class="form-label">Endereço</label>
+                <input class="form-control" name="logradouro" [(ngModel)]="form.logradouro" placeholder="Rua, número, bairro, cidade">
+              </div>
+
+              <div class="d-flex gap-2">
+                <button type="submit" class="btn btn-danger" [disabled]="salvando">
+                  {{ salvando ? 'Salvando...' : 'Salvar alterações' }}
+                </button>
+                <button type="button" class="btn btn-outline-secondary" (click)="cancelar()">Cancelar</button>
+              </div>
+            </form>
+          }
+        </div>
+      </div>
+
+    </div>
+  }
+</div>

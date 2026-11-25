@@ -1,0 +1,24 @@
+<div class="login">
+    <div class="img-login">
+
+    </div>
+    <div class="formlogin">
+        <div class="textlogin">
+            <img src="gif/rover.gif" alt="" width="90px">
+            <h5>Faça seu</h5>
+            <h2>Login</h2>
+            <img src="indentidades/logotipo-3.png" alt="Logo Stars" width="160px" class="logo">
+        </div>
+        <div class="forms">
+            <form (ngSubmit)="entrar()">
+                E-mail<br><input type="email" name="email" [(ngModel)]="email" required placeholder="LinkL@sgroup.sk.br">
+                Senha<br><input type="password" name="senha" [(ngModel)]="senha" required placeholder="Insira a Sua Senha!">
+                <div *ngIf="mensagem" class="alert alert-danger mt-2">{{ mensagem }}</div>
+                <button type="submit" id="submit" [disabled]="enviando">Fazer Login</button>
+                <p class="a">Caso não tenha conta, <a routerLink="/cadastro" align="left" id="primer"><span class="red">Clique aqui!</span></a></p>
+                <p class="a">Esqueceu a senha? <a routerLink="/recuperarSenha" align="left" id="primer"><span class="red">Clique aqui!</span></a></p>
+                <a routerLink="/"><button type="button" class="voltar">Voltar para o Início</button></a>
+            </form>
+        </div>
+    </div>
+</div>
